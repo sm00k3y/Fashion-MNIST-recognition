@@ -17,7 +17,7 @@ def hamming_distance(X, X_train):
     for i in range(np.shape(X)[0]):
         distance[i] = np.sum(abs(X_train - X[i]), axis=1)
         if i % 100 == 0:
-            print(i/np.shape(X)[0], "%")
+            print(100.*i/np.shape(X)[0], "%")
     return distance
 
 

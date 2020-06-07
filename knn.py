@@ -84,13 +84,11 @@ def plot_knn_errors(errors):
     """
     Plotting the errors of each *k* value
     """
-    plt.figure()
     plt.style.use('dark_background')
     plt.plot(range(1, 15), (1-np.array(errors)), 'g')
     plt.legend(('Accuracy', ''))
     plt.ylabel('Accuracy')
     plt.xlabel('K Nearest Neighbors')
+    plt.title("Accuracy for each *k* value")
     plt.draw()
-    # plt.show()
-    plt.waitorbuttonpress()
-    plt.close()
+    plt.show()

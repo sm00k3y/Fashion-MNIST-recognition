@@ -27,13 +27,15 @@ def knn_algorithm():
     (best_err, best_k, errors) = knn.model_selection_knn(X_test, X_train, y_test, y_train, range(1, 15))
 
     end = time.time()
+    hours, rem = divmod(end - start, 3600)
+    minutes, seconds = divmod(rem, 60)
     # Presenting results
-    print("Time: {:.2f}".format(end - start))
+    print("Time: {:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds))
     print("Best k: {}".format(best_k))
     print("Best (lowest) error: {}".format(best_err))
     print("Accuracy: {}".format(1 - best_err))
     print("Error table for each k: ", errors)
-    print("\n\n------------------- PRRESS ANY KEY TO CONTINUE--------------------")
+    print("\n\n------------------- CLOSE THE CHART TO CONTINUE--------------------")
 
     # Plotting the result
     knn.plot_knn_errors(errors)
@@ -50,13 +52,23 @@ def cnn_tensorflow():
     train_model = cnn.run_model(model, xTrain, yTrain, xVal, yVal, xTest, yTest)
 
     end = time.time()
-    print("Time: {:.2f} seconds".format(end - start))
-    print("\n\n------------------- PRRESS ANY KEY TO CONTINUE--------------------")
+    hours, rem = divmod(end - start, 3600)
+    minutes, seconds = divmod(rem, 60)
+    print("Time: {:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds))
+    print("\n\n------------------- PRESS ANY KEY TO CONTINUE--------------------")
 
     # Plotting results
     cnn.plot_model_evaluation(train_model)
 
 
 if __name__ == "__main__":
+
+    print("\n---------------")
+    print("| RUNNING KNN |")
+    print("---------------")
     knn_algorithm()
+
+    print("\n--------------------------")
+    print("| RUNNING CNN TENSORFLOW |")
+    print("--------------------------")
     cnn_tensorflow()

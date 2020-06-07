@@ -4,7 +4,7 @@ import numpy as np
 
 def taxicab_metric(X, X_train):
     """
-    Method returns a taxicab distance, also known as Manhattan distance between two images
+    Method returns a taxicab distance matrix, also known as Manhattan distance between two images
     """
     # Normalizing the data
     X = X / 255.

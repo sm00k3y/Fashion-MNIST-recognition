@@ -12,29 +12,7 @@ BATCH_SIZE = 32         # Size of one batch
 NUM_OF_EPOCHS = 25      # Number of epoch to train the model
 VAL_SPLIT = 0.2         # Validation set split ratio (20% of dataset will be validation)
 LEARNING_RATE = 0.01    # Learning rate for Stochastic Gradient Descent
-
-class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
-               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
-
-
-def show_sample_dataset(x_train, y_train):
-    """
-    Showing first 40 images of train dataset
-    """
-    x_train = np.reshape(x_train, (np.shape(x_train)[0], 28, 28))
-    plt.figure(figsize=(14, 10))
-
-    for i in range(40):
-        plt.subplot(5, 8, i+1)
-        plt.xticks([])
-        plt.yticks([])
-        plt.grid(False)
-        plt.imshow(x_train[i], cmap=plt.cm.gist_yarg)
-        plt.xlabel(class_names[y_train[i]])
-
-    plt.draw()
-    plt.waitforbuttonpress()
-    plt.close()
+LABELS_COUNT = 10
 
 
 def prepare_dataset(x_train, y_train, x_test, y_test):
@@ -49,8 +27,8 @@ def prepare_dataset(x_train, y_train, x_test, y_test):
     x_train = x_train / 255.
     x_test = x_test / 255.
 
-    y_train = to_categorical(y_train, len(class_names))
-    y_test = to_categorical(y_test, len(class_names))
+    y_train = to_categorical(y_train, LABELS_COUNT)
+    y_test = to_categorical(y_test, LABELS_COUNT)
 
     x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=VAL_SPLIT, random_state=2018)
 
@@ -61,42 +39,46 @@ def cnn_model():
     """
     Building a Sequential model, displaying its statistics at the end
     """
+    # First set of 2 * Convolutional layers
     model = Sequential()
     model.add(Conv2D(32,
                      kernel_size=(3, 3),
                      activation='relu',
-                     padding="same",
+                     padding='same',
                      kernel_initializer='he_normal',
                      input_shape=(28, 28, 1)))
     model.add(BatchNormalization(axis=-1))
     model.add(Conv2D(32,
-                     (3, 3),
+                     kernel_size=(3, 3),
                      activation='relu',
-                     padding="same"))
+                     padding='same'))
     model.add(BatchNormalization(axis=-1))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
 
+    # Second set of 2 * Convolutional layers
     model.add(Conv2D(64,
-                     (3, 3),
+                     kernel_size=(3, 3),
                      activation='relu',
-                     padding="same"))
+                     padding='same'))
     model.add(BatchNormalization(axis=-1))
     model.add(Conv2D(64,
-                     (3, 3),
+                     kernel_size=(3, 3),
                      activation='relu',
-                     padding="same"))
+                     padding='same'))
     model.add(BatchNormalization(axis=-1))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
 
+    # One normal, dense hidden layer with size of 512
     model.add(Flatten())
     model.add(Dense(512,
                     activation='relu'))
     model.add(BatchNormalization())
     model.add(Dropout(0.5))
 
-    model.add(Dense(len(class_names),
+    # Last layer with 10 neurons representing labels
+    model.add(Dense(LABELS_COUNT,
                     activation='relu'))
 
     opt = SGD(lr=LEARNING_RATE, momentum=0.9, decay=LEARNING_RATE/NUM_OF_EPOCHS)
@@ -110,7 +92,7 @@ def cnn_model():
     return model
 
 
-def run_model(model, X_train, y_train, X_val, y_val, X_test, y_test):
+def run_model(model, X_train, y_train, X_val, y_val, X_test, y_test, class_names):
     """
     Training the model with parameters at the beginning, then displaying
     test score and classification report
@@ -120,13 +102,13 @@ def run_model(model, X_train, y_train, X_val, y_val, X_test, y_test):
                             epochs=NUM_OF_EPOCHS,
                             verbose=1,
                             validation_data=(X_val, y_val))
+    print()
+    predictions = model.predict(X_test)
+    print(classification_report(y_test.argmax(axis=1), predictions.argmax(axis=1), target_names=class_names))
 
     score = model.evaluate(X_test, y_test, verbose=1)
     print("\nTest loss: {:.3f}".format(score[0]))
-    print("Test accuracy: {:.3f}".format(score[1]))
-
-    predictions = model.predict(X_test)
-    print(classification_report(y_test.argmax(axis=1), predictions.argmax(axis=1), target_names=class_names))
+    print("Test accuracy: {:.3f}\n".format(score[1]))
 
     return train_model
 

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 import knn
-import cnn_tensorflow as tf
+import cnn_tensorflow as cnn
 
 X_train, y_train = mnist_reader.load_mnist('data/fashion', kind='train')
 X_test, y_test = mnist_reader.load_mnist('data/fashion', kind='t10k')
@@ -22,7 +22,7 @@ print("--------------------------")
 
 # tf.show_sample_dataset(X_train, y_train)
 # tf.cnn_model(X_train, y_train, X_test, y_test)
-tf.run_test_harness(X_train, y_train, X_test, y_test)
+# tf.run_test_harness(X_train, y_train, X_test, y_test)
 
 # END OF TESTING SPACE
 
@@ -47,3 +47,10 @@ def knn_algorithm():
     plt.ylabel('Accuracy')
     plt.xlabel('K Nearest Neighbors')
     plt.show()
+
+
+def cnn_tensorflow():
+    cnn.show_sample_dataset(X_train, y_train)
+    (xTrain, yTrain, xVal, yVal, xTest, yTest) = cnn.prepare_dataset(X_train, y_train, X_test, y_test)
+    model = cnn.cnn_model()
+    cnn.run_model(model, xTrain, yTrain, xVal, yVal, xTest, yTest)

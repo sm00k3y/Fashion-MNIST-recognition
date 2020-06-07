@@ -439,25 +439,30 @@ This is the best part, showing off!
 
 Firstly, I would like to present the results of my KNN model.
 
+![Image not loaded](readme_data/KNN_results.PNG)
+
+![Image not loaded](readme_data/KNN_result_chart.PNG)
+
+As for my understanding, parameters in benchmark mean:
+* n_neighbours: best *k* value
+* p: distance used (p=1 - manhattan, p=2 - euclidean)
+* weights: "uniform" - means that all the distances are weighted equally, "distance" - means that neighbors are weighted by their distance to given object
 
 Classyfing my KNN model to compare with Fashion-MNIST benchmark:
 
 Name                | Parameter                                     | Accuracy (mean) | Training time
 ------------------- | --------------------------------------------- | --------------- | -------------
-KNeighborsClassifier| {"n_neighbors":5, "p":1, "weights":"uniform"} | 0.8596          | some_tiem
+KNeighborsClassifier| {"n_neighbors":7, "p":1, "weights":"uniform"} | 0.8596          | 01:02:05.46
 
 And here is the benchmark part with KNN models:
 
 ![Image not loaded](readme_data/knn_benchmark.png)
 
-As for my understanding, parameters mean:
-* n_neighbours: best *k* value
-* p: distance used (p=1 - manhattan, p=2 - euclidean)
-* weights: "uniform" - means that all the distances are weighted equally, "distance" - means that neighbors are weighted by their distance to given object
+As we can see, our KNN model is very similiar in accuracy to those in benchmark, however, the best value of *k* differs. In my case it was 7, and in benchmark it's 5.
 
 ### CNN
 
-I would like to present the results of my CNN model.
+I would like to now present the results of my CNN model.
 
 Accuracy on Test Set | Loss on a Test Set  | Training time
 -------------------- | ------------------- | --------------

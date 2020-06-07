@@ -471,11 +471,15 @@ Accuracy on Test Set | Loss on a Test Set  | Training time
 ![Image not loaded](readme_data/CNN_results_acc_chart.PNG)
 ![Image not loaded](readme_data/CNN_results_loss_chart.PNG)
 
+The charts show that we were able to avoid overfitting due to our model structure with Dopout and Bach Normalization Layers.
+
 What is quite surprising but also understandable is that my CNN produced the same result that one of the results in benchmark on Fashion-MNIST github:
 
 ![Image not loaded](readme_data/cnn_benchmark.png)
 
 This entry is named "2 Conv+pooling+BN" which means 2 layers of Convolutional Network + Pooling + BatchNormalization which is exactly what I've done in my CNN. That is why the result matches almost exactly the entry.
+
+The super long training time in the CNN model is due to many reasons. First of them is definitely lack of powerful GPU unit. The second is the rich and computional-power-demanding Neural Network structure. I believe that with support of a medium-stron GPU unit, the time can be greatly improved.
 
 ## Usage
 Usage of this code is quite simple. After cloning the repository and installing all the required libraries, it is enough to run **main.py**

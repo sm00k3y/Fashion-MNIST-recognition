@@ -479,7 +479,7 @@ What is quite surprising but also understandable is that my CNN produced the sam
 
 This entry is named "2 Conv+pooling+BN" which means 2 layers of Convolutional Network + Pooling + BatchNormalization which is exactly what I've done in my CNN. That is why the result matches almost exactly the entry.
 
-The super long training time in the CNN model is due to many reasons. First of them is definitely lack of powerful GPU unit. The second is the rich and computional-power-demanding Neural Network structure. I believe that with support of a medium-stron GPU unit, the time can be greatly improved.
+The super long training time in the CNN model is due to many reasons. First of them is definitely lack of powerful GPU unit. The second is the rich and computional-power-demanding Neural Network structure. I believe that with support of a medium-strong GPU unit, the time can be greatly improved.
 
 ## Usage
 Usage of this code is quite simple. After cloning the repository and installing all the required libraries, it is enough to run **main.py**
@@ -518,4 +518,4 @@ These are the sources which helped me understand and develop a great intuition f
 * Testing, training, experimenting
 
 ## License
-This is a project done for a subject, tought by [dr. inż. Maciej Zięba](https://www.ii.pwr.edu.pl/~zieba/) on [Wroclaw University Of Science and Technology](https://pwr.edu.pl/)
+This is a project done for a subject, taught by [dr. inż. Maciej Zięba](https://www.ii.pwr.edu.pl/~zieba/) on [Wroclaw University Of Science and Technology](https://pwr.edu.pl/)
